@@ -72,7 +72,7 @@ if st.button("🚀 Générer l'Avatar"):
 
     # Ajouter le masque Anonymous (exemple)
     # Assurez-vous d'avoir un fichier local du masque ou une URL de celui-ci
-    mask_url = "https://banner2.cleanpng.com/lnd/20240910/pz/297958b03b9e8569100a23cf6747aa.webp"  # Remplacez par l'URL de votre masque
+    mask_url = "https://j.top4top.io/p_336979h430.png"  # Remplacez par l'URL de votre masque
     mask_response = requests.get(mask_url)
     mask = Image.open(BytesIO(mask_response.content))
 
