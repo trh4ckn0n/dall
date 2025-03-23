@@ -2,6 +2,9 @@ import streamlit as st
 import openai
 import os
 from dotenv import load_dotenv
+from PIL import Image
+import requests
+from io import BytesIO
 
 # Charger la clé API
 load_dotenv()
@@ -63,5 +66,24 @@ if st.button("🚀 Générer l'Avatar"):
     
     st.image(image_url, caption=f"Avatar généré pour {nom_hacker}", use_container_width=True)
 
-    # Ajout d'un bouton de téléchargement
-    st.download_button(label="📥 Télécharger l'image", data=image_url, file_name=f"{nom_hacker}_avatar.png")
+    # Télécharger l'image générée
+    response = requests.get(image_url)
+    img = Image.open(BytesIO(response.content))
+
+    # Ajouter le masque Anonymous (exemple)
+    # Assurez-vous d'avoir un fichier local du masque ou une URL de celui-ci
+    mask_url = "https://banner2.cleanpng.com/lnd/20240910/pz/297958b03b9e8569100a23cf6747aa.webp"  # Remplacez par l'URL de votre masque
+    mask_response = requests.get(mask_url)
+    mask = Image.open(BytesIO(mask_response.content))
+
+    # Appliquer le masque sur l'image générée (ajustez la position et la taille selon vos besoins)
+    img.paste(mask, (100, 100), mask)  # Position et application du masque (position à ajuster)
+
+    # Afficher l'image modifiée
+    st.image(img, caption=f"Avatar avec masque Anonymous pour {nom_hacker}", use_container_width=True)
+
+    # Ajouter un bouton de téléchargement pour l'image modifiée
+    img_byte_arr = BytesIO()
+    img.save(img_byte_arr, format='PNG')
+    img_byte_arr.seek(0)
+    st.download_button(label="📥 Télécharger l'image avec masque", data=img_byte_arr, file_name=f"{nom_hacker}_avatar_with_mask.png")
