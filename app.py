@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 from PIL import Image
 import requests
 from io import BytesIO
+import cairosvg
 
 # Charger la clé API
 load_dotenv()
@@ -70,25 +71,33 @@ if st.button("🚀 Générer l'Avatar"):
     response = requests.get(image_url)
     img = Image.open(BytesIO(response.content))
 
-    # Ajouter le masque Anonymous (exemple)
-    # Assurez-vous d'avoir un fichier local du masque ou une URL de celui-ci
-    mask_url = "https://j.top4top.io/p_336979h430.png"  # Remplacez par l'URL de votre masque
-    mask_response = requests.get(mask_url)
-    mask = Image.open(BytesIO(mask_response.content))
+    # Charger et convertir le logo SVG en image PNG
+    logo_svg_url = "https://github.com/trh4ckn0n/dall/raw/refs/heads/main/2025032212162013.svg"  # Remplacez par votre URL ou chemin local
+    logo_svg_response = requests.get(logo_svg_url)
+    logo_svg = logo_svg_response.content
 
-    # Redimensionner le masque pour qu'il s'adapte à l'image
-    mask_size = (img.width // 10, img.height // 10)  # Taille ajustée en fonction de l'image
-    mask = mask.resize(mask_size)
+    # Convertir le logo SVG en PNG
+    logo_png = cairosvg.svg2png(bytestring=logo_svg)
 
-    # Positionner le masque sur l'image
-    mask_position = (img.width // 5, img.height // 4)  # Positionner à une position centrale
-    img.paste(mask, mask_position, mask)  # Appliquer le masque avec transparence
+    # Charger l'image PNG dans PIL
+    logo = Image.open(BytesIO(logo_png))
+
+    # Redimensionner le logo pour qu'il soit adapté à l'image (par exemple 10% de la largeur de l'image)
+    logo_width = img.width // 5
+    logo_height = int(logo.height * (logo_width / logo.width))  # Garder la proportion
+    logo = logo.resize((logo_width, logo_height))
+
+    # Calculer la position pour centrer le logo horizontalement et le placer en bas
+    logo_position = ((img.width - logo.width) // 2, img.height - logo.height)
+
+    # Superposer le logo sur l'image générée
+    img.paste(logo, logo_position, logo)  # Le logo peut avoir de la transparence
 
     # Afficher l'image modifiée
-    st.image(img, caption=f"Avatar avec masque Anonymous pour {nom_hacker}", use_container_width=True)
+    st.image(img, caption=f"Avatar avec logo pour {nom_hacker}", use_container_width=True)
 
     # Ajouter un bouton de téléchargement pour l'image modifiée
     img_byte_arr = BytesIO()
     img.save(img_byte_arr, format='PNG')
     img_byte_arr.seek(0)
-    st.download_button(label="📥 Télécharger l'image avec masque", data=img_byte_arr, file_name=f"{nom_hacker}_avatar_with_mask.png")
+    st.download_button(label="📥 Télécharger l'image avec logo", data=img_byte_arr, file_name=f"{nom_hacker}_avatar_with_logo.png")
