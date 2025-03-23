@@ -44,9 +44,9 @@ prompt = (
     f"A 3D character of a {style.lower()} with a {genre.lower()} appearance, standing in a {ambiance.lower()}. "
     f"The character has a clear human face with distinct features, and a {couleur_veste} hoodie. "
     f"Add the name {nom_hacker} clearly displayed on the picture. "
-    f"He brandishes {accessoires_str}. Their facial expression is {expression.lower()}. "
+    f"The character is holding {accessoires_str}. Their facial expression is {expression.lower()}. "
     f"The environment is detailed, featuring cinematic lighting at intensity {lumiere}. {fumee_str}. "
-    f"The character is {style_description}. The face should be realistic with no distortions."
+    f"The character is {style_description}. The face should be realistic with no distortions, and the character should appear human and clear."
 )
 
 st.write(f"📜 **Prompt utilisé :** {prompt}")
