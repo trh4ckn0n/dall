@@ -6,7 +6,7 @@ from PIL import Image
 import requests
 from io import BytesIO
 import svgpathtools
-import cairosvg
+from PIL import ImageDraw, ImageFont
 
 # Charger la clé API
 load_dotenv()
@@ -77,13 +77,27 @@ if st.button("🚀 Générer l'Avatar"):
     svg_response = requests.get(svg_url)
 
     # Charger et manipuler le fichier SVG avec svgpathtools
-    # Charger le SVG et récupérer le chemin
     paths, attributes = svgpathtools.svg2paths(svg_response.content)
 
-    # Nous allons convertir le fichier SVG en PNG avec cairosvg
-    # Convertir le SVG en PNG
-    logo_svg = cairosvg.svg2png(bytestring=svg_response.content)
-    logo_img = Image.open(BytesIO(logo_svg))
+    # Convertir le fichier SVG en PNG à l'aide de Pillow
+    # Nous allons créer une image vide de la même taille que l'image SVG
+    # Utiliser l'image PIL pour dessiner les chemins SVG
+
+    # Nous allons rasteriser (convertir) le SVG en image PNG
+    svg_img = Image.new("RGBA", (img.width, img.height), (0, 0, 0, 0))  # Crée une image vide
+    draw = ImageDraw.Draw(svg_img)
+
+    # Dessiner chaque chemin SVG dans l'image
+    for path in paths:
+        for segment in path:
+            # Convertir chaque segment de path en ligne ou forme à dessiner sur l'image
+            # Nous pouvons dessiner des lignes basées sur les coordonnées du path
+            for point in segment:
+                # Utiliser les coordonnées du path pour dessiner sur l'image
+                draw.line([point.real, point.imag], fill="white", width=2)
+
+    # Convertir l'image SVG en PNG
+    logo_img = svg_img.convert("RGBA")
 
     # Redimensionner le logo pour qu'il s'adapte à l'image
     logo_size = (img.width // 5, img.height // 10)  # Ajuster la taille en fonction de l'image
