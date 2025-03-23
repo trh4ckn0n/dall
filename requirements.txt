@@ -2,4 +2,4 @@ openai==0.28
 streamlit
 python-dotenv
 cairosvg
-svg2png
+svgpathtools
