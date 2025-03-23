@@ -52,7 +52,7 @@ if st.button("🚀 Générer l'Avatar"):
         )
         image_url = response["data"][0]["url"]
     
-    st.image(image_url, caption=f"Avatar généré pour {nom_hacker}", use_column_width=True)
+    st.image(image_url, caption=f"Avatar généré pour {nom_hacker}", use_container_width=True)
 
     # Ajout d'un bouton de téléchargement
     st.download_button(label="📥 Télécharger l'image", data=image_url, file_name=f"{nom_hacker}_avatar.png")
