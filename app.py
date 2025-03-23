@@ -2,11 +2,10 @@ import streamlit as st
 import openai
 import os
 from dotenv import load_dotenv
-from PIL import Image
 import requests
 from io import BytesIO
 import svgpathtools
-from PIL import ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageFont
 
 # Charger la clé API
 load_dotenv()
