@@ -71,27 +71,23 @@ if st.button("🚀 Générer l'Avatar"):
     response = requests.get(image_url)
     img = Image.open(BytesIO(response.content))
 
-    # Charger et convertir le logo SVG en image PNG
-    logo_svg_url = "https://github.com/trh4ckn0n/dall/raw/refs/heads/main/2025032212162013.svg"  # Remplacez par votre URL ou chemin local
-    logo_svg_response = requests.get(logo_svg_url)
-    logo_svg = logo_svg_response.content
+    # Ajouter le logo SVG
+    svg_url = "https://github.com/trh4ckn0n/dall/raw/refs/heads/main/2025032212162013.svg"  # Remplacez par l'URL de votre logo SVG
+    svg_response = requests.get(svg_url)
 
-    # Convertir le logo SVG en PNG
-    logo_png = cairosvg.svg2png(bytestring=logo_svg)
+    # Convertir le SVG en PNG
+    logo_svg = cairosvg.svg2png(bytestring=svg_response.content)
+    logo_img = Image.open(BytesIO(logo_svg))
 
-    # Charger l'image PNG dans PIL
-    logo = Image.open(BytesIO(logo_png))
+    # Redimensionner le logo pour qu'il s'adapte à l'image
+    logo_size = (img.width // 5, img.height // 10)  # Ajuster la taille en fonction de l'image
+    logo_img = logo_img.resize(logo_size)
 
-    # Redimensionner le logo pour qu'il soit adapté à l'image (par exemple 10% de la largeur de l'image)
-    logo_width = img.width // 5
-    logo_height = int(logo.height * (logo_width / logo.width))  # Garder la proportion
-    logo = logo.resize((logo_width, logo_height))
+    # Calculer la position pour centrer horizontalement et positionner en bas verticalement
+    logo_position = ((img.width - logo_img.width) // 2, img.height - logo_img.height - 20)  # 20px au-dessus du bas
 
-    # Calculer la position pour centrer le logo horizontalement et le placer en bas
-    logo_position = ((img.width - logo.width) // 2, img.height - logo.height)
-
-    # Superposer le logo sur l'image générée
-    img.paste(logo, logo_position, logo)  # Le logo peut avoir de la transparence
+    # Appliquer le logo sur l'image générée
+    img.paste(logo_img, logo_position, logo_img)  # Applique le logo avec transparence
 
     # Afficher l'image modifiée
     st.image(img, caption=f"Avatar avec logo pour {nom_hacker}", use_container_width=True)
