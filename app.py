@@ -39,12 +39,14 @@ if style == "Street Art":
 else:
     style_description = f"in a {style.lower()} style"
 
+# Prompt plus précis pour éviter les masses informes
 prompt = (
-    f"A street life 3D character of a {style.lower()} with a {genre.lower()} appearance, standing in a {ambiance.lower()}. "
-    f"The character wears a {couleur_veste} hoodie with 'guy fawkes mask logo', add the name {nom_hacker} correctly spelled and clearly displayed on the image. "
+    f"A 3D character of a {style.lower()} with a {genre.lower()} appearance, standing in a {ambiance.lower()}. "
+    f"The character has a clear human face with distinct features, and a {couleur_veste} hoodie. "
+    f"Add the name {nom_hacker} clearly displayed on the chest or back of the hoodie. "
     f"They hold {accessoires_str}. Their facial expression is {expression.lower()}. "
     f"The environment is detailed, featuring cinematic lighting at intensity {lumiere}. {fumee_str}. "
-    f"The character is {style_description}"
+    f"The character is {style_description}. The face should be realistic with no distortions."
 )
 
 st.write(f"📜 **Prompt utilisé :** {prompt}")
