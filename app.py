@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 from PIL import Image
 import requests
 from io import BytesIO
-from svgpathtools import svg2png
+import svgpathtools
 import cairosvg
 
 # Charger la clé API
@@ -76,9 +76,14 @@ if st.button("🚀 Générer l'Avatar"):
     svg_url = "https://github.com/trh4ckn0n/dall/raw/refs/heads/main/2025032212162013.svg"  # Remplacez par l'URL de votre logo SVG
     svg_response = requests.get(svg_url)
 
+    # Charger et manipuler le fichier SVG avec svgpathtools
+    # Charger le SVG et récupérer le chemin
+    paths, attributes = svgpathtools.svg2paths(svg_response.content)
+
+    # Nous allons convertir le fichier SVG en PNG avec cairosvg
     # Convertir le SVG en PNG
-    logo_png = svg2png(bytestring=svg_response.content)
-    logo_img = Image.open(BytesIO(logo_png))
+    logo_svg = cairosvg.svg2png(bytestring=svg_response.content)
+    logo_img = Image.open(BytesIO(logo_svg))
 
     # Redimensionner le logo pour qu'il s'adapte à l'image
     logo_size = (img.width // 5, img.height // 10)  # Ajuster la taille en fonction de l'image
