@@ -19,7 +19,7 @@ col1, col2 = st.columns(2)
 with col1:
     nom_hacker = st.text_input("💾 Nom/Pseudo à afficher", "TRKN")
     style = st.selectbox("🎭 Style du personnage", ["Hacker", "Cyberpunk", "Rapeur", "Anonymous", "Deal", "Dark", "Street Art"])
-    accessoires = st.multiselect("🛠 Accessoires", ["Smartphone Kali NetHunter", "Gun", "Laptop", "Lunettes futuristes", "Sac à dos tech", "Casque audio"], ["Smartphone Kali NetHunter"])
+    accessoires = st.multiselect("🛠 Accessoires", ["Smartphone Kali NetHunter", "His gun", "Laptop", "Lunettes futuristes", "Sac à dos tech", "Casque audio"], ["Smartphone Kali NetHunter"])
     expression = st.selectbox("😎 Expression du visage", ["Furieux", "Souriant", "Menaçant", "Mystérieux"])
     genre = st.radio("🧑 Genre", ["Masculin", "Féminin", "Androgyne"], index=0)
 
@@ -43,7 +43,7 @@ else:
 prompt = (
     f"A 3D character of a {style.lower()} with a {genre.lower()} appearance, standing in a {ambiance.lower()}. "
     f"The character has a clear human face with distinct features, and a {couleur_veste} hoodie. "
-    f"Add the name {nom_hacker} clearly displayed on the chest or back of the hoodie. "
+    f"Add the name {nom_hacker} clearly displayed on the picture. "
     f"He brandishes {accessoires_str}. Their facial expression is {expression.lower()}. "
     f"The environment is detailed, featuring cinematic lighting at intensity {lumiere}. {fumee_str}. "
     f"The character is {style_description}. The face should be realistic with no distortions."
