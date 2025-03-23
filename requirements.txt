@@ -1,5 +1,5 @@
 openai==0.28
 streamlit
 python-dotenv
-pillow
+pil
 svgpathtools
