@@ -73,7 +73,7 @@ if st.button("🚀 Générer l'Avatar"):
     img = Image.open(BytesIO(response.content))
 
     # Ajouter le logo SVG
-    svg_url = "https://github.com/trh4ckn0n/dall/raw/refs/heads/main/2025032212162013.svg"  # Remplacez par l'URL de votre logo SVG
+    svg_url = "https://raw.githubusercontent.com/trh4ckn0n/work/f319818faebb4e4935760b41e29e8b4a04c78be0/trknanm.svg"  # Remplacez par l'URL de votre logo SVG
     svg_response = requests.get(svg_url)
 
     # Charger et manipuler le fichier SVG avec svgpathtools
