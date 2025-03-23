@@ -19,7 +19,7 @@ col1, col2 = st.columns(2)
 with col1:
     nom_hacker = st.text_input("💾 Nom/Pseudo à afficher", "TRKN")
     style = st.selectbox("🎭 Style du personnage", ["Hacker", "Cyberpunk", "Rapeur", "Anonymous", "Deal", "Dark", "Street Art"])
-    accessoires = st.multiselect("🛠 Accessoires", ["Smartphone Kali NetHunter", "Glock Caliber", "Laptop", "Lunettes futuristes", "Sac à dos tech", "Casque audio"], ["Smartphone Kali NetHunter"])
+    accessoires = st.multiselect("🛠 Accessoires", ["Smartphone Kali NetHunter", "Weapon", "Laptop", "Lunettes futuristes", "Sac à dos tech", "Casque audio"], ["Smartphone Kali NetHunter"])
     expression = st.selectbox("😎 Expression du visage", ["Furieux", "Souriant", "Menaçant", "Mystérieux"])
     genre = st.radio("🧑 Genre", ["Masculin", "Féminin", "Androgyne"], index=0)
 
