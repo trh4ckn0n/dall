@@ -77,11 +77,11 @@ if st.button("🚀 Générer l'Avatar"):
     mask = Image.open(BytesIO(mask_response.content))
 
     # Redimensionner le masque pour qu'il s'adapte à l'image
-    mask_size = (img.width // 6, img.height // 3)  # Taille ajustée en fonction de l'image
+    mask_size = (img.width // 8, img.height // 3)  # Taille ajustée en fonction de l'image
     mask = mask.resize(mask_size)
 
     # Positionner le masque sur l'image
-    mask_position = (img.width // 22, img.height // 2)  # Positionner à une position centrale
+    mask_position = (img.width // 24, img.height // 3)  # Positionner à une position centrale
     img.paste(mask, mask_position, mask)  # Appliquer le masque avec transparence
 
     # Afficher l'image modifiée
