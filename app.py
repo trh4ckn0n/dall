@@ -34,8 +34,8 @@ accessoires_str = ", ".join(accessoires) if accessoires else "aucun accessoire"
 fumee_str = "with a mysterious fog in the background" if fumee else "with a clear background"
 
 prompt = (
-    f"A street life 3D character of a {style.lower()} with a {genre.lower()} appearance, with the name {nom_hacker} correctly spelled and clearly displayed on the image, standing in a {ambiance.lower()}. "
-    f"The character wears a {couleur_veste} hoodie with 'guy fawkes mask logo' clearly displayed. "
+    f"A street life 3D character of a {style.lower()} with a {genre.lower()} appearance, standing in a {ambiance.lower()}. "
+    f"The character wears a {couleur_veste} hoodie with 'guy fawkes mask logo', add the name {nom_hacker} correctly spelled and clearly displayed on the image. "
     f"They hold {accessoires_str}. Their facial expression is {expression.lower()}. "
     f"The environment is detailed, featuring cinematic lighting at intensity {lumiere}. {fumee_str}."
 )
