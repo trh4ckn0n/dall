@@ -18,9 +18,9 @@ col1, col2 = st.columns(2)
 
 with col1:
     nom_hacker = st.text_input("💾 Nom/Pseudo à afficher", "TRHACKNON")
-    style = st.selectbox("🎭 Style du personnage", ["Hacker", "Cyberpunk", "Super-héros", "Mignon", "Classique", "Dark"])
+    style = st.selectbox("🎭 Style du personnage", ["Hacker", "Cyberpunk", "Rapeur", "Anonymous", "Deal", "Dark"])
     accessoires = st.multiselect("🛠 Accessoires", ["Smartphone Kali NetHunter", "Laptop", "Lunettes futuristes", "Sac à dos tech", "Casque audio"], ["Smartphone Kali NetHunter"])
-    expression = st.selectbox("😎 Expression du visage", ["Sérieux", "Souriant", "Menaçant", "Mystérieux"])
+    expression = st.selectbox("😎 Expression du visage", ["Furieux", "Souriant", "Menaçant", "Mystérieux"])
     genre = st.radio("🧑 Genre", ["Masculin", "Féminin", "Androgyne"], index=0)
 
 with col2:
@@ -35,7 +35,7 @@ fumee_str = "with a mysterious fog in the background" if fumee else "with a clea
 
 prompt = (
     f"A street life 3D character of a {style.lower()} with a {genre.lower()} appearance, standing in a {ambiance.lower()}. "
-    f"The character wears a {couleur_veste} hoodie with '{nom_hacker}' clearly displayed. "
+    f"The character wears a {couleur_veste} hoodie with '{nom_hacker}' clearly displayed and correct letters! its important. "
     f"They hold {accessoires_str}. Their facial expression is {expression.lower()}. "
     f"The environment is detailed, featuring cinematic lighting at intensity {lumiere}. {fumee_str}."
 )
