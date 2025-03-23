@@ -18,13 +18,13 @@ col1, col2 = st.columns(2)
 
 with col1:
     nom_hacker = st.text_input("💾 Nom/Pseudo à afficher", "TRKN")
-    style = st.selectbox("🎭 Style du personnage", ["Hacker", "Cyberpunk", "Rapeur", "Anonymous", "Deal", "Dark"])
+    style = st.selectbox("🎭 Style du personnage", ["Hacker", "Cyberpunk", "Rapeur", "Anonymous", "Deal", "Dark", "Street Art"])
     accessoires = st.multiselect("🛠 Accessoires", ["Smartphone Kali NetHunter", "Laptop", "Lunettes futuristes", "Sac à dos tech", "Casque audio"], ["Smartphone Kali NetHunter"])
     expression = st.selectbox("😎 Expression du visage", ["Furieux", "Souriant", "Menaçant", "Mystérieux"])
     genre = st.radio("🧑 Genre", ["Masculin", "Féminin", "Androgyne"], index=0)
 
 with col2:
-    ambiance = st.selectbox("🌆 Ambiance", ["Ruelle sombre", "Ville futuriste", "Bureau high-tech", "Forêt cyberpunk", "Bunker secret"])
+    ambiance = st.selectbox("🌆 Ambiance", ["Ruelle sombre", "Ville futuriste", "Bureau high-tech", "Forêt cyberpunk", "Bunker secret", "Mur de graffitis"])
     couleur_veste = st.color_picker("🎨 Couleur de la veste", "#000000")
     lumiere = st.slider("🔆 Intensité de la lumière", 1, 10, 5)
     fumee = st.checkbox("🌫 Ajouter de la fumée", value=True)
@@ -33,11 +33,18 @@ with col2:
 accessoires_str = ", ".join(accessoires) if accessoires else "aucun accessoire"
 fumee_str = "with a mysterious fog in the background" if fumee else "with a clear background"
 
+# Ajout d'éléments typiques du style "Street Art"
+if style == "Street Art":
+    style_description = "in a vibrant street art style, featuring graffiti, splashes of color, and urban textures such as concrete walls and spray-painted art."
+else:
+    style_description = f"in a {style.lower()} style"
+
 prompt = (
     f"A street life 3D character of a {style.lower()} with a {genre.lower()} appearance, standing in a {ambiance.lower()}. "
     f"The character wears a {couleur_veste} hoodie with 'guy fawkes mask logo', add the name {nom_hacker} correctly spelled and clearly displayed on the image. "
     f"They hold {accessoires_str}. Their facial expression is {expression.lower()}. "
-    f"The environment is detailed, featuring cinematic lighting at intensity {lumiere}. {fumee_str}."
+    f"The environment is detailed, featuring cinematic lighting at intensity {lumiere}. {fumee_str}. "
+    f"The character is {style_description}"
 )
 
 st.write(f"📜 **Prompt utilisé :** {prompt}")
