@@ -7,13 +7,13 @@ from dotenv import load_dotenv
 load_dotenv()
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
-# Customisation UI
+# 🔹 Configuration UI Streamlit
 st.set_page_config(page_title="Avatar 3D Generator", layout="wide")
 
-st.markdown("<h1 style='text-align: center;'>🎨 Générateur d'Avatars 3D</h1>", unsafe_allow_html=True)
-st.write("🚀 Personnalise ton avatar avec des options avancées et génère une image 3D unique.")
+st.markdown("<h1 style='text-align: center;'>🎨 Générateur d'Avatars 3D Ultra-Personnalisé</h1>", unsafe_allow_html=True)
+st.write("🚀 Personnalise ton avatar et génère une image 3D unique en quelques secondes.")
 
-# 🔹 Personnalisation avancée
+# 🔹 Interface utilisateur avec colonnes
 col1, col2 = st.columns(2)
 
 with col1:
@@ -29,30 +29,32 @@ with col2:
     lumiere = st.slider("🔆 Intensité de la lumière", 1, 10, 5)
     fumee = st.checkbox("🌫 Ajouter de la fumée", value=True)
 
-# Génération du prompt amélioré avec intelligence
+# 🔹 Génération du prompt
 accessoires_str = ", ".join(accessoires) if accessoires else "aucun accessoire"
 fumee_str = "with a mysterious fog in the background" if fumee else "with a clear background"
 
 prompt = (
     f"A Pixar-style 3D character of a {style.lower()} with a {genre.lower()} appearance, standing in a {ambiance.lower()}. "
-    f"The character wears a {couleur_veste} hoodie with '{nom_hacker}' clearly displayed. "
+    f"The character wears a {couleur_veste} hoodie with '{nom_hacker}' clearly displayed in bold letters. "
     f"They hold {accessoires_str}. Their facial expression is {expression.lower()}. "
     f"The environment is detailed, featuring cinematic lighting at intensity {lumiere}. {fumee_str}."
 )
 
 st.write(f"📜 **Prompt utilisé :** {prompt}")
 
-# Bouton de génération
+# 🔹 Bouton de génération
 if st.button("🚀 Générer l'Avatar"):
     with st.spinner("Génération en cours... ⏳"):
-        response = openai.Image.create(
+        response = openai.images.generate(
+            model="dall-e-3",
             prompt=prompt,
             n=1,
             size="1024x1024"
         )
-        image_url = response["data"][0]["url"]
+        image_url = response.data[0].url
     
-    st.image(image_url, caption=f"Avatar généré pour {nom_hacker}", use_column_width=True)
+    # Affichage de l'image
+    st.image(image_url, caption=f"Avatar généré pour {nom_hacker}", use_container_width=True)
 
-    # Ajout d'un bouton de téléchargement
+    # Bouton de téléchargement
     st.download_button(label="📥 Télécharger l'image", data=image_url, file_name=f"{nom_hacker}_avatar.png")
