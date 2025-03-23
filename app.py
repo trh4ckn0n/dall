@@ -76,8 +76,13 @@ if st.button("🚀 Générer l'Avatar"):
     mask_response = requests.get(mask_url)
     mask = Image.open(BytesIO(mask_response.content))
 
-    # Appliquer le masque sur l'image générée (ajustez la position et la taille selon vos besoins)
-    img.paste(mask, (100, 100), mask)  # Position et application du masque (position à ajuster)
+    # Redimensionner le masque pour qu'il s'adapte à l'image
+    mask_size = (img.width // 3, img.height // 3)  # Taille ajustée en fonction de l'image
+    mask = mask.resize(mask_size)
+
+    # Positionner le masque sur l'image
+    mask_position = (img.width // 3, img.height // 4)  # Positionner à une position centrale
+    img.paste(mask, mask_position, mask)  # Appliquer le masque avec transparence
 
     # Afficher l'image modifiée
     st.image(img, caption=f"Avatar avec masque Anonymous pour {nom_hacker}", use_container_width=True)
