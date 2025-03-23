@@ -2,10 +2,9 @@ import streamlit as st
 import openai
 import os
 from dotenv import load_dotenv
+from PIL import Image
 import requests
 from io import BytesIO
-import svgpathtools
-from PIL import Image, ImageDraw, ImageFont
 
 # Charger la clé API
 load_dotenv()
@@ -71,48 +70,25 @@ if st.button("🚀 Générer l'Avatar"):
     response = requests.get(image_url)
     img = Image.open(BytesIO(response.content))
 
-    # Ajouter le logo SVG
-    svg_url = "https://raw.githubusercontent.com/trh4ckn0n/work/f319818faebb4e4935760b41e29e8b4a04c78be0/trknanm.svg"  # Remplacez par l'URL de votre logo SVG
-    svg_response = requests.get(svg_url)
+    # Ajouter le masque Anonymous (exemple)
+    # Assurez-vous d'avoir un fichier local du masque ou une URL de celui-ci
+    mask_url = "https://j.top4top.io/p_336979h430.png"  # Remplacez par l'URL de votre masque
+    mask_response = requests.get(mask_url)
+    mask = Image.open(BytesIO(mask_response.content))
 
-    # Charger et manipuler le fichier SVG avec svgpathtools
-    paths, attributes = svgpathtools.svg2paths(svg_response.content)
+    # Redimensionner le masque pour qu'il s'adapte à l'image
+    mask_size = (img.width // 10, img.height // 10)  # Taille ajustée en fonction de l'image
+    mask = mask.resize(mask_size)
 
-    # Convertir le fichier SVG en PNG à l'aide de Pillow
-    # Nous allons créer une image vide de la même taille que l'image SVG
-    # Utiliser l'image PIL pour dessiner les chemins SVG
-
-    # Nous allons rasteriser (convertir) le SVG en image PNG
-    svg_img = Image.new("RGBA", (img.width, img.height), (0, 0, 0, 0))  # Crée une image vide
-    draw = ImageDraw.Draw(svg_img)
-
-    # Dessiner chaque chemin SVG dans l'image
-    for path in paths:
-        for segment in path:
-            # Convertir chaque segment de path en ligne ou forme à dessiner sur l'image
-            # Nous pouvons dessiner des lignes basées sur les coordonnées du path
-            for point in segment:
-                # Utiliser les coordonnées du path pour dessiner sur l'image
-                draw.line([point.real, point.imag], fill="white", width=2)
-
-    # Convertir l'image SVG en PNG
-    logo_img = svg_img.convert("RGBA")
-
-    # Redimensionner le logo pour qu'il s'adapte à l'image
-    logo_size = (img.width // 5, img.height // 10)  # Ajuster la taille en fonction de l'image
-    logo_img = logo_img.resize(logo_size)
-
-    # Calculer la position pour centrer horizontalement et positionner en bas verticalement
-    logo_position = ((img.width - logo_img.width) // 2, img.height - logo_img.height - 20)  # 20px au-dessus du bas
-
-    # Appliquer le logo sur l'image générée
-    img.paste(logo_img, logo_position, logo_img)  # Applique le logo avec transparence
+    # Positionner le masque sur l'image
+    mask_position = (img.width // 5, img.height // 4)  # Positionner à une position centrale
+    img.paste(mask, mask_position, mask)  # Appliquer le masque avec transparence
 
     # Afficher l'image modifiée
-    st.image(img, caption=f"Avatar avec logo pour {nom_hacker}", use_container_width=True)
+    st.image(img, caption=f"Avatar avec masque Anonymous pour {nom_hacker}", use_container_width=True)
 
     # Ajouter un bouton de téléchargement pour l'image modifiée
     img_byte_arr = BytesIO()
     img.save(img_byte_arr, format='PNG')
     img_byte_arr.seek(0)
-    st.download_button(label="📥 Télécharger l'image avec logo", data=img_byte_arr, file_name=f"{nom_hacker}_avatar_with_logo.png")
+    st.download_button(label="📥 Télécharger l'image avec masque", data=img_byte_arr, file_name=f"{nom_hacker}_avatar_with_mask.png")
