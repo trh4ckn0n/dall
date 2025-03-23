@@ -41,12 +41,12 @@ else:
 
 # Prompt plus précis pour éviter les masses informes
 prompt = (
-    f"A 3D character of a {style.lower()} with a {genre.lower()} appearance, standing in a {ambiance.lower()}. "
-    f"The character has a clear human face with distinct features, and a {couleur_veste} hoodie. "
+    f"A realistic character of a {style.lower()} with a {genre.lower()} appearance, standing in a {ambiance.lower()}. "
+    f"The character has a clear human face with distinct features, and a {couleur_veste} jogging jacket. "
     f"Add the name {nom_hacker} clearly displayed on the picture. "
     f"The character is holding {accessoires_str}. Their facial expression is {expression.lower()}. "
     f"The environment is detailed, featuring cinematic lighting at intensity {lumiere}. {fumee_str}. "
-    f"The character is {style_description}. The face should be realistic with no distortions, and the character should appear human and clear."
+    f"The character is {style_description}. The face should be realistic with no distortions, and the character should appear human and young."
 )
 
 st.write(f"📜 **Prompt utilisé :** {prompt}")
